@@ -7,7 +7,18 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp",
+    {
+      "hrsh7th/nvim-cmp",
+      dependencies = {
+        "Saecki/crates.nvim",
+        event = { "BufRead Cargo.toml" },
+        opts = {
+          completion = {
+            cmp = { enabled = true },
+          }
+        }
+      }
+    },
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
