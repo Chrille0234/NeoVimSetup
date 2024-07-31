@@ -46,7 +46,8 @@ return {
                         "cssls",
                         "svelte",
                         "templ",
-                        "tailwindcss"
+                        "tailwindcss",
+                        "phpactor",
                   },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -70,7 +71,28 @@ return {
                         }
                     }
                 end,
-        }
+
+                  ["phpactor"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.phpactor.setup {
+                      capabilities = capabilities,
+                      root_dir = function()
+                        -- Set a broader root directory
+                        return vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
+                      end,
+                      -- Add any additional phpactor-specific settings here
+                      settings = {
+                        phpactor = {
+                          -- Optional: Adjust or add settings for better performance
+                          completion = {
+                            -- Example setting for completion
+                            enable = true,
+                          },
+                        },
+                      },
+                    }
+                  end,
+      }
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
